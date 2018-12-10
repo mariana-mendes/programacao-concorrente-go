@@ -4,9 +4,9 @@ package main
 import	("fmt"
          "time"
          "math/rand")
-	var server1 chan string = make(chan string)
-	var server2 chan string = make(chan string)
-  var server3 chan string= make(chan string)
+var server1 chan string = make(chan string)
+var server2 chan string = make(chan string)
+var server3 chan string= make(chan string)
 
 func reliableRequest() string {
 
@@ -28,7 +28,7 @@ func reliableRequest() string {
 func main() {
   servers := [3]string{"mirror1.com", "mirror2.br", "mirror3.edu"}
 
-		go func(msg string) {
+    go func(msg string) {
       server1 <- msg
     }(servers[0])
 
