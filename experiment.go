@@ -1,47 +1,46 @@
-
 package main
 
 import	("fmt"
   "runtime"
   "time"
-  "math/rand")
+  "math")
 
 func main() {
 
   var m runtime.MemStats
   runtime.ReadMemStats(&m)
   fmt.Println("Alloc = ", bToKb(m.Alloc))
-  j := 0
-  for j < 10 {
-    fmt.Println("Alloc = ", bToKb(m.Alloc))
-    runtime.ReadMemStats(&m)
+var k float64
+k = 1
+for k < 14 {
+var j float64
+j = 0
+var x float64
+x = math.Pow(2, k)
+  for j < x  {
     go func() {
-
-      i := 0
-      for i < 10 {
-        t:= time.Duration(rand.Intn(100))  
-        time.Sleep(t * time.Millisecond)
+    i := 0
+      for i < 10000 {
         i = i + 1
       }
     }()
 
     go func() {
     i := 0
-    for i < 10 {
-      
-      runtime.ReadMemStats(&m)
-      t:= time.Duration(rand.Intn(100))  
-      time.Sleep(t * time.Millisecond)
-      i = i + 1
-    }
+      for i < 10000 {
+        i = i + 1
+      }
   }()
-
-
   j = j + 1
   }
   t:= time.Duration(5000)  
   time.Sleep(t * time.Millisecond)
-  fmt.Println("TotalAlloc = ", bToKb(m.TotalAlloc))
+  runtime.ReadMemStats(&m)
+  fmt.Println("TotalAlloc = ", (bToKb(m.TotalAlloc)))
+  fmt.Println("Number of Go routines = ", j)
+k = k + 1
+}
+
 
   runtime.GC()    
 }
